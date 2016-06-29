@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import DS from 'ember-data';
+
 var modelMixin;
 
 modelMixin = Ember.Mixin.create({
@@ -51,7 +53,8 @@ modelMixin = Ember.Mixin.create({
     if (!model) {
       return;
     }
-    if (model.type) {
+    //avoid of using internal api
+    if (model instanceof DS.RecordArray) {
       return controller.set('model', Ember.Object.create({
         items: model,
         __list: true,
