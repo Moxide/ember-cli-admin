@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import AdminResolver from 'ember-cli-admin/admin-resolver';
-import loadInitializers from 'ember/load-initializers';
+import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 
 Ember.MODEL_FACTORY_INJECTIONS = true;

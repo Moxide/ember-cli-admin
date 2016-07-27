@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-
+const { getOwner } = Ember;
 var modelMixin;
 
 modelMixin = Ember.Mixin.create({
@@ -19,7 +19,7 @@ modelMixin = Ember.Mixin.create({
     if (options.action) {
       this._setAction(options.action);
     }
-    if (!this.container.lookupFactory('model:' + this.modelName)) {
+    if (!getOwner(this).resolveRegistration('model:' + this.modelName)) {
       if (this.modelName.match(/dashboard/) || this.modelName.match(/index/) || this.modelName.match(/application/)) {
         return;
       }
