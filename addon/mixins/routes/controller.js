@@ -7,20 +7,13 @@ const { getOwner } = Ember;
 export default Ember.Mixin.create({
   getOutlet: function(controller, outletName) {
     var outlet = `${Ember.String.decamelize(this._controllerName(controller))}/${outletName}`;
-    if (this._getRegistry().hasRegistration(`template:${outlet}`)) {
+    if (getOwner(this).hasRegistration(`template:${outlet}`)) {
       return outlet;
     }
-    if (this._getRegistry().hasRegistration(`template:admin/${outletName}`)) {
+    if (getOwner(this).hasRegistration(`template:admin/${outletName}`)) {
       return `admin/${outletName}`;
     }
     return `admin/${outletName}`;
-  },
-
-  _getRegistry() {
-    if (getOwner(this)) {
-      return getOwner(this);
-    }
-    return getOwner(this);
   },
 
   _getControllerTemplate: function(controller) {
@@ -28,7 +21,7 @@ export default Ember.Mixin.create({
     name = this._controllerName(controller);
 
     if (this._isLoading(name) || this._isError(name)) {
-      if (this._getRegistry().hasRegistration(`template:${name}`)) {
+      if (getOwner(this).hasRegistration(`template:${name}`)) {
         return name;
       }
       if (this._isLoading(name)) {
@@ -44,7 +37,7 @@ export default Ember.Mixin.create({
     if (name === "dashboard") {
       return "admin/dashboard";
     }
-    if (this._getRegistry().hasRegistration(`template:${name}`)) {
+    if (getOwner(this).hasRegistration(`template:${name}`)) {
       return name;
     } else {
       if (this.action && this.action !== "page") {
